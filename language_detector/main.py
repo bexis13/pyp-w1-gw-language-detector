@@ -19,7 +19,8 @@ def detect_language(text, languages):
     #loop through each language
     for language in languages:
         single_language = language['name']  # name of language we are dealing with right now
-        word_occurence_in_languages[single_language] = 0  # initialize the counter for this language we are dealing with right now
+        word_occurence_in_languages[single_language] = 0  # initialize the counter for this
+        #language we are dealing with right now
         common_words = language['common_words']  #list of common words in each language
         
         #in each language, loop through every common_word
