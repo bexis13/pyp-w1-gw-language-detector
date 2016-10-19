@@ -6,35 +6,8 @@ from language_detector import detect_language, LANGUAGES
 
 class TestLanguageDetector(unittest.TestCase):
 
-    def setUp(self):
-        self.languages = [
-            {
-                'name': 'Spanish',
-                'common_words': [
-                    'el', 'la', 'de', 'que', 'y', 'a', 'en', 'un', 'ser', 'se',
-                    'no', 'haber', 'por', 'con', 'su', 'para', 'como', 'estar',
-                    'tener', 'le', 'lo', 'lo', 'todo', 'pero', 'más', 'hacer',
-                    'o', 'poder', 'decir', 'este', 'ir', 'otro', 'ese', 'la',
-                    'si', 'me', 'ya', 'ver', 'porque', 'dar', 'cuando', 'él',
-                    'muy', 'sin', 'vez', 'mucho', 'saber', 'qué', 'sobre',
-                    'mi', 'alguno', 'mismo', 'yo', 'también', 'hasta'
-                ]
-            },
-            {
-                'name': 'German',
-                'common_words': [
-                    'das', 'ist', 'du', 'ich', 'nicht', 'die', 'es', 'und',
-                    'der', 'was', 'wir', 'zu', 'ein', 'er', 'in', 'sie', 'mir',
-                    'mit', 'ja', 'wie', 'den', 'auf', 'mich', 'dass', 'so',
-                    'hier', 'eine', 'wenn', 'hat', 'all', 'sind', 'von',
-                    'dich', 'war', 'haben', 'für', 'an', 'habe', 'da', 'nein',
-                    'bin', 'noch', 'dir', 'uns', 'sich', 'nur',
-                    'einen', 'kann', 'dem'
-                ]
-            }
-        ]
-        self.texts = {
-            "spanish": """
+    def test_detect_language_spanish_with_module_language_specification(self):
+        text = """
                 Lionel Andrés Messi Cuccittini (Rosario, 24 de junio de 1987),
                 conocido como Leo Messi, es un futbolista argentino11 que juega
                 como delantero en el Fútbol Club Barcelona y en la selección
@@ -44,8 +17,13 @@ class TestLanguageDetector(unittest.TestCase):
                 historia que ha ganado cinco veces el FIFA Balón de Oro –cuatro de
                 ellos en forma consecutiva– y el primero en
                 recibir tres Botas de Oro.
-                """,
-            "german": """
+                """
+        result = detect_language(text, LANGUAGES)
+        self.assertEqual(result, 'Spanish')
+
+
+    def test_detect_language_german_with_module_language_specification(self):
+        text =  """
                 Messi spielt seit seinem 14. Lebensjahr für den FC Barcelona.
                 Mit 24 Jahren wurde er Rekordtorschütze des FC Barcelona, mit 25
                 der jüngste Spieler in der La-Liga-Geschichte, der 200 Tore
@@ -53,20 +31,18 @@ class TestLanguageDetector(unittest.TestCase):
                 Erstligatore erzielt und ist damit Rekordtorschütze
                 der Primera División.
                 """
-        }
+        result = detect_language(text, LANGUAGES)
+        self.assertEqual(result, 'German')
+    
+    def test_detect_language_english_with_module_language_specification(self):
+        text = """
+                Shakespeare was born and brought up in Stratford-upon-Avon,
+                Warwickshire. At the age of 18, he married Anne Hathaway, 
+                with whom he had three children: Susanna, and twins Hamnet and Judith.
+                Sometime between 1585 and 1592, he began a successful career in London 
+                as an actor, writer, and part-owner of a playing company called the Lord
+                Chamberlain's Men, later known as the King's Men.
+                """
+        result = detect_language(text, LANGUAGES)
+        self.assertEqual(result, 'English')
 
-    def test_detect_language_spanish_with_our_language_specification(self):
-        result = detect_language(self.texts["spanish"], self.languages)
-        self.assertEqual(result.lower(), 'spanish')
-
-    def test_detect_language_spanish_with_module_language_specification(self):
-        result = detect_language(self.texts["spanish"], LANGUAGES)
-        self.assertEqual(result.lower(), 'spanish')
-
-    def test_detect_language_german_with_our_language_specification(self):
-        result = detect_language(self.texts["german"], self.languages)
-        self.assertEqual(result.lower(), 'german')
-
-    def test_detect_language_german_with_module_language_specification(self):
-        result = detect_language(self.texts["german"], LANGUAGES)
-        self.assertEqual(result.lower(), 'german')
