@@ -58,18 +58,3 @@ def detect_language(text, languages=LANGUAGES):
     
     
     
-
-# def detect_language(text, languages=LANGUAGES):
-#     """Returns the detected language of given text."""
-#     # implement your solution here
-#     new_text = text.split()
-#     language = LANGUAGES[0]['common_words']
-#     new_language = language
-#     for word in new_language:
-#         b= word in new_text
-#         if(b):
-#             return "spanish"
-#         else:
-#             return "german"
-
-
